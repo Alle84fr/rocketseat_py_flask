@@ -10,10 +10,15 @@ https://github.com/Alle84fr/rocketseat_py_flask
 
 - Postman - Testes manuais
 
-- Flask - Framework para transformar o código python em seervidor web
+- Flask - Framework para transformar o código python em seervidor web.
 
-- Swagger - Ferramenta para documentar, padronizar e permitir teste da API
+- Swagger - Ferramenta para documentar, padronizar e permitir teste da API.
 
-- IA - Solucionar dúvidas não resolvidas em aulas e ajudar a entender bugs
+- IA - Solucionar dúvidas não resolvidas em aulas e ajudar a entender bugs.
 
-- Python - Linguagem de programação interpretado (executa linha por linha)
+- Python - Linguagem de programação interpretado (executa linha por linha).
+
+- SQlite - banco de dados para aprender APENAS, pois é um arquivo de texto, não um servidor.
+
+- Biblioteca SQLAlchemy - interação com banco de dados SQL, usamdo o ORM (Object Relational Mapper), que mapeia classes .py para tabelas de bd.
+

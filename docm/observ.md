@@ -19,3 +19,31 @@ pip - gerenciador de pacotes do .py, instala as bibliotecas
 -r - abreviação de requirementes, é para ler o arquivo, no caso requirements.txt
 
 <span style="color: #ff8922;"> python -m pip install -r requirements.txt</span> lista os arquivos e diretórios
+
+<h3>Resposta HTML</h3>
+
+<span style="color: #ff8922;"> 200</span> solicitação bem sucedida
+
+<span style="color: #ff8922;"> 201</span> Recurso criado
+
+<span style="color: #ff8922;"> 202</span> solicitação aprovada, mas processo não iniciado ou concluido
+
+<span style="color: #ff8922;"> 400</span> Erro do cliente, solicitação inválida
+
+<span style="color: #ff8922;"> 401</span> Não autorizado, solicitação não processada devido erro na autentificação
+
+<span style="color: #ff8922;"> 449</span> Tente novamente, servidor não processou a solicitação porque o cliente não forneceu informações necessárias
+
+<span style="color: #ff8922;"> 500</span> Erro do servidor 
+
+<h3>Erro flask shell</h3>
+
+1° ver versão do flask
+
+<span style="color: #ff8922;"> python -m flask --version</span> 
+
+> Python 3.13.3
+Flask 2.3.0
+Werkzeug 2.3.0
+
+usar <span style="color: #ff8922;"> python -m flask shell</span>
