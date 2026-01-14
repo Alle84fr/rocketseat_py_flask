@@ -87,7 +87,7 @@ def add_product():
 # deletar
 # <tipo:parametro>
 # vai delatar pegando id do produto
-@app.route("/api/product/delete/<int:product_id>", methods=["DELETE"])
+@app.route("/api/products/delete/<int:product_id>", methods=["DELETE"])
 def delete_product(product_id):
     #recuperar produto
     # pesquisee pegue o id do produto da class produto
@@ -99,6 +99,11 @@ def delete_product(product_id):
         db.session.commit()
         return jsonify({"message": "Product Deleted"}), 200
     return jsonify({"error": "Failed to delete product"}), 404
+    
+#Recuperar detalhes
+@app.route("/app/products/")
+    
+    
     
 #----------------------------------
 
