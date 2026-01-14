@@ -6,7 +6,7 @@
 
 3° bd no ternimal
 
-python -m flask shell - ir 
+<span style="color: #ff8922;">python -m flask shell</span>
 retorno
 Ctrl click to launch VS Code Native REPL
 Python 3.13.3 (tags/v3.13.3:6280bb5, Apr  8 2025, 14:47:33) [MSC v.1943 64 bit (AMD64)] on win32
@@ -54,3 +54,16 @@ send
 retorno 200 ok + no body o corpo payload criado
 
 5° ir para ecommerce.db - verá o produto celular criado, que ficará fixo
+
+6° depois da fazer route list -  iniciar swagger
+
+7° <span style="color: #ff8922;">python -m flask shell</span>
+
+<span style="color: #ff8922;">db.drop_all()</span> remove todas as tabelas do bd mapeadas pelo models, não tem retorno
+
+<span style="color: #ff8922;">db.create_all()</span> transforma tudo em tabela, sem retorno
+
+<span style="color: #ff8922;">db.session.commit()</span> "salvar"
+
+<span style="color: #ff8922;">exit()</span> sair
+

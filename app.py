@@ -1,11 +1,20 @@
 # Da biblioteca flask traga a classe Flask
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+# imporação para utilização do swagger
+from flask_cors import CORS
+#para login
+from flask_login import UserMixin
 
 #instanciando/ criando novo obj flask
 #variável __name__ refere a caminho
 
 app = Flask(__name__)
+
+# testas com swagger , para permiter que sistemas de fora acesse o sistema
+# ir para 
+CORS(app)
+
 
 #caminho para bd do sqlalchemy
 # "SQLALCHEMY_DATABASE-URI" - diz onde está o bd
@@ -15,6 +24,15 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ecommerce.db"
 #iniciar ação de conexão do db(database / bd banco de dados)
 #app que é a variável que possui o flask
 db = SQLAlchemy(app)
+
+# identificação usuário
+# guardar user  name e password
+class User(db.Model, UserMixin ):
+    id = db.Column(db.Integer, primary_key=True)
+    # unique = True, não pode ter outro igual
+    username = db.Column(db.String(80), nullable=False, unique=True)
+    password = db.Column(db.String(80), nullable=False)
+    
 
 #modelagem, tabelas com collumn and row
 # terá colunas com id, name, price, description
