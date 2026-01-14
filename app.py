@@ -56,7 +56,16 @@ def add_product():
     #recuperar dados
     #request vem do flask
     data = request.json
-    return data
+    #criando produto e savando na variável product
+    # Product é da classe criada anteriormente
+    #nome=data["name"] - pega variável data, e dentro é o valor da chave de acesso do dict
+    # método.get recupera a chave
+    # 1° método se não achar dá erro, no segundo se não achar retorna valor que por dentro do parenteses "None"
+    product = Product(name=data["name"], price=data["price"], description=data.get("description", ""))
+    #add no db
+    db.session.add(product)
+    db.session.commit()
+    return "201 - produto cadastro"
 # ir passo 4 docm/seque.md
 
 #----------------------------------
