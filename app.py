@@ -4,7 +4,9 @@ from flask_sqlalchemy import SQLAlchemy
 # imporação para utilização do swagger
 from flask_cors import CORS
 #para login
-from flask_login import UserMixin
+# login_user para utentificação
+# login_+manager faz gerenciamento dos usuários
+from flask_login import UserMixin, login_user, LoginManager
 
 #instanciando/ criando novo obj flask
 #variável __name__ refere a caminho
@@ -15,15 +17,30 @@ app = Flask(__name__)
 # ir para 
 CORS(app)
 
+#chave secreta utentificação
+# atenção é SECRET e não SECRETE
+app.config["SECRET_KEY"] = "minha_chave_123"
+# sequencia 9 para ver se funcionou
 
 #caminho para bd do sqlalchemy
 # "SQLALCHEMY_DATABASE-URI" - diz onde está o bd
 # caminho padrão, inicia com sqlite(neste caso por ser lite):///nome_do_bd (o arquivo a ser usado)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ecommerce.db"
 
+#instanciando classe login manager
+login_manager = LoginManager()
+
 #iniciar ação de conexão do db(database / bd banco de dados)
 #app que é a variável que possui o flask
 db = SQLAlchemy(app)
+
+#continuação da autentificaçao user e password
+# recebe a aplicação
+login_manager.init_app(app)
+# mostrar a rota para autenticar, login
+login_manager.login_view = "login"
+# chave secreta, deve ter, LoginManager usa autenticar, pode ser qualquer uma - voltar para antes do app.config["SQLA...."]
+
 
 # identificação usuário
 # guardar user  name e password
@@ -52,7 +69,8 @@ def login():
     user = User.query.filter_by(username=data.get("username")).first()
     # verifica se tem usuário e se senha corresponde
     if user and data.get("password") == user.password:
-            return jsonify({"message": "Logged in successfully"})
+        login_user(user)
+        return jsonify({"message": "Logged in successfully"})
     return jsonify({"error": "Unauthorized. Invalid credentials"}), 401
         
 #modelagem, tabelas com collumn and row

@@ -80,3 +80,5 @@ SE QUISER PODE USAR O FLASK MIGRATE, para alterar o banco em deletar, altera tud
 <span style="color: #ff8922;">db.session.commit()</span> salva
 
 <span style="color: #ff8922;">exit()</span> sair
+
+9° no postman, depois de fazer post e ter retorno 200 ok, na parte do resultado ir para headers - set-cookie - é a infromação que garante que já se foi autenticado em algum momento anterior. Nas próximas, o post já envia o cookie e já sabe que houve autentificação
