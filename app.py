@@ -83,6 +83,23 @@ def add_product():
         return {"message": "Product created"}, 201
 # ir passo 4 docm/seque.md
 # ir para passo 5 docm/seque.md
+
+# deletar
+# <tipo:parametro>
+# vai delatar pegando id do produto
+@app.route("/api/product/delete/<int:product_id>", methods=["DELETE"])
+def delete_product(product_id):
+    #recuperar produto
+    # pesquisee pegue o id do produto da class produto
+    product = Product.query.get(product_id)
+    #verificar se é válido, existe
+    # if product != None: se produto for diferente de None, o que significa SE PRODUTO É VALIDO if product
+    if product:
+        db.session.delete(product)
+        db.session.commit()
+        return jsonify({"message": "Product Deleted"}), 200
+    return jsonify({"error": "Failed to delete product"}), 404
+    
 #----------------------------------
 
 #para subir
