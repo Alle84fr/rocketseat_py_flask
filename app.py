@@ -132,7 +132,25 @@ def update_product(product_id):
     
     return jsonify({"message": "Product updated"})
         
-        
+# Recuperar lista de produtos
+# sem barra recupera tudo
+@app.route("/api/products", methods=["GET"])
+def list_product():
+    products = Product.query.all()
+    # para cada p na lista products
+    product_list = []
+    for product in products:
+        product_data = {
+            "id": product.id, 
+            "name": product.name, 
+            "price": product.price, 
+            # não por descrição, pois ela é grande, se o usuário a quiser, ela pode pegar o id desejado e pesquisar - X "description": product.description
+        }
+        product_list.append(product_data)
+    return jsonify(product_list)
+
+
+
         
 #----------------------------------
 
