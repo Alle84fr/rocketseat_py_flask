@@ -101,9 +101,16 @@ def delete_product(product_id):
     return jsonify({"error": "Failed to delete product"}), 404
     
 #Recuperar detalhes
-@app.route("/app/products/")
+@app.route("/app/products/<int:product_id>", methods=["GET"])
+def get_product_details(product_id):
+    product = Product.query.get(product_id)
+    if product:
+        return jsonify({"id": product.id, 
+                        "name": product.name, 
+                        "price": product.price, "description": product.description})
+    return jsonify({"error": "Product not found"}), 404
     
-    
+#
     
 #----------------------------------
 
