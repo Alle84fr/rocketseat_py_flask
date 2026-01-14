@@ -47,3 +47,11 @@ Flask 2.3.0
 Werkzeug 2.3.0
 
 usar <span style="color: #ff8922;"> python -m flask shell</span>
+
+<h3>Métodos HTTP</h3>
+
+<span style="color: #ff8922;"> GET</span> BUSCAR, LER, não altera, geralmente não tem payload
+<span style="color: #ff8922;"> POST</span> CRIAR, CADASTRAR possui paylaod
+<span style="color: #ff8922;"> PUT</span> ATUALIZAR TUDO
+<span style="color: #ff8922;"> PATCH</span>  ATUALIZA PARTE, alguns campos 
+<span style="color: #ff8922;"> DELETE</span> REMOVE, geralmente não tem payload

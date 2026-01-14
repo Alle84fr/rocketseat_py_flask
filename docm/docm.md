@@ -12,7 +12,7 @@ https://github.com/Alle84fr/rocketseat_py_flask
 
 - Flask - Framework para transformar o código python em seervidor web.
 
-- Swagger - Ferramenta para documentar, padronizar e permitir teste da API.
+- Swagger - Ferramenta para documentar, padronizar e permitir teste da API. Site editor.swagger.io
 
 - IA - Solucionar dúvidas não resolvidas em aulas e ajudar a entender bugs.
 
