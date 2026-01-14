@@ -110,8 +110,30 @@ def get_product_details(product_id):
                         "price": product.price, "description": product.description})
     return jsonify({"error": "Product not found"}), 404
     
-#
+#Atualizar
+@app.route("/api/products/update/<int:product_id>", methods=["PUT"])
+def update_product(product_id):
+    '''Recebe infromação - muda o dado'''
+    product = Product.query.get(product_id)
+    if not product:
+        return jsonify({"error": "Product not found"}), 404
+    data = request.json
+    # se tem chaves
+    if "name" in data:
+        # se tem a chave name, recebe os dados enviados pelo cliente (que está em data, e será recebido pela chave name)
+        product.name = data["name"]
+        
+    if "price" in data: product.price = data["price"]
     
+    if "description" in data: product.description = data["description"]
+    
+    # como não precisa adiconar, pois ele já existe não coloca add
+    db.session.commit()
+    
+    return jsonify({"message": "Product updated"})
+        
+        
+        
 #----------------------------------
 
 #para subir
