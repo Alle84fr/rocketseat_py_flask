@@ -32,7 +32,8 @@ class User(db.Model, UserMixin ):
     # unique = True, não pode ter outro igual
     username = db.Column(db.String(80), nullable=False, unique=True)
     password = db.Column(db.String(80), nullable=False)
-    
+ # ir para passo 7°
+ #aqui poderia fazer rotas para criar usuário, mas ele fará e outra forma, passo 8  
 
 #modelagem, tabelas com collumn and row
 # terá colunas com id, name, price, description

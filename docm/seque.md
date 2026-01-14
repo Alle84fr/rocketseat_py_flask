@@ -59,11 +59,24 @@ retorno 200 ok + no body o corpo payload criado
 
 7° <span style="color: #ff8922;">python -m flask shell</span>
 
-<span style="color: #ff8922;">db.drop_all()</span> remove todas as tabelas do bd mapeadas pelo models, não tem retorno
+<span style="color: #ff8922;">db.drop_all()</span> remove todas as tabelas do bd mapeadas pelo models, não tem retorno - APAGA TUDO, DE QUALQUER TABELA
+
+SE QUISER PODE USAR O FLASK MIGRATE, para alterar o banco em deletar, altera tudo, não será usado aqui
 
 <span style="color: #ff8922;">db.create_all()</span> transforma tudo em tabela, sem retorno
 
 <span style="color: #ff8922;">db.session.commit()</span> "salvar"
 
-<span style="color: #ff8922;">exit()</span> sair
 
+
+8° <span style="color: #ff8922;">python -m flask shell</span>
+
+<span style="color: #ff8922;">user= User(username="admin", password="123")</span> não tem retorno
+
+<span style="color: #ff8922;">user</span> retorna >>> <User (transient 2330234441744)>
+
+<span style="color: #ff8922;">db.session.add(user)</span> adiciona
+
+<span style="color: #ff8922;">db.session.commit()</span> salva
+
+<span style="color: #ff8922;">exit()</span> sair
