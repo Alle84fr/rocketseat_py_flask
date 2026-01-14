@@ -6,6 +6,10 @@
 
 <span style="color: #ff8922;"> ls</span> lista os arquivos e diretórios
 
+<span style="color: #ff8922;"> shift alt tecla cima pu baixo</span> copia a linha que esta marcada ou cok cursor
+
+<span style="color: #ff8922;"> python app.py</span> mesmo que apertar play
+
 <h3>Instalação requirements, requisitos</h3>
 
 pip - não é aceito no PATH do sistema, então deve usar o comando com python
@@ -37,6 +41,8 @@ pip - gerenciador de pacotes do .py, instala as bibliotecas
 <span style="color: #ff8922;"> 403 Forbidden </span> Proibido, autenticado porém sem permissão "de uso, login"
 
 <span style="color: #ff8922;"> 404 Not Found </span> Não encontrado, recurso inexistente, produto não encontrado, rota inexistente
+
+<span style="color: #ff8922;"> 405 Method Not Allowed </span> Método não permitido, ex verbo é post e colocou-se get
 
 <span style="color: #ff8922;"> 409 Conflict </span> Conflito, email já existente, produto duplicado
 

@@ -35,6 +35,26 @@ class User(db.Model, UserMixin ):
  # ir para passo 7°
  #aqui poderia fazer rotas para criar usuário, mas ele fará e outra forma, passo 8  
 
+#---- rora user -----
+@app.route("/login", methods=["POST"])
+def login():
+    '''recebe dados, recupera, anlisa, retorna erro ou dados'''
+    data = request.json
+    
+    #recuperar username de duas formas
+    # 1° data["username"] - aqui tem de ter certeza que usuário enviou
+    #2° aqui não entra excessão 500 no cód
+    data.get("username")
+    
+    #recuperar user no bd
+    # filter_by escolher uma coluna, que não a id, para pesquisa
+    # retorna uma lista, para pegar só um usuário usa método first()
+    user = User.query.filter_by(username=data.get("username")).first()
+    # verifica se tem usuário e se senha corresponde
+    if user and data.get("password") == user.password:
+            return jsonify({"message": "Logged in successfully"})
+    return jsonify({"error": "Unauthorized. Invalid credentials"}), 401
+        
 #modelagem, tabelas com collumn and row
 # terá colunas com id, name, price, description
 #linhas terão as infromações
