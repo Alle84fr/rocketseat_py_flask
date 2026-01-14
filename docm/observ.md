@@ -22,19 +22,25 @@ pip - gerenciador de pacotes do .py, instala as bibliotecas
 
 <h3>Resposta HTML</h3>
 
-<span style="color: #ff8922;"> 200</span> solicitação bem sucedida
+<span style="color: #ff8922;"> 200 OK</span> solicitação bem sucedida
 
-<span style="color: #ff8922;"> 201</span> Recurso criado
+<span style="color: #ff8922;"> 201 Created</span> Recurso criado
 
-<span style="color: #ff8922;"> 202</span> solicitação aprovada, mas processo não iniciado ou concluido
+<span style="color: #ff8922;"> 202 Accepted </span> solicitação aprovada, mas processo não iniciado ou concluido, ex tarefa assíncrona, fila
 
-<span style="color: #ff8922;"> 400</span> Erro do cliente, solicitação inválida
+<span style="color: #ff8922;"> 204 No Content </span> Sem conteúdo, deu certo mas não tem retorno, ex de uso, quando deletado com sucesso.
 
-<span style="color: #ff8922;"> 401</span> Não autorizado, solicitação não processada devido erro na autentificação
+<span style="color: #ff8922;"> 400 Bad request </span> Erro do cliente, solicitação inválida, tipo errado do dado(int e não string), sem campo obrigatório, payload mal feito
 
-<span style="color: #ff8922;"> 449</span> Tente novamente, servidor não processou a solicitação porque o cliente não forneceu informações necessárias
+<span style="color: #ff8922;"> 401 Unauthorized </span> Não autorizado, solicitação não processada devido erro na autentificação, é para login/autenticação
 
-<span style="color: #ff8922;"> 500</span> Erro do servidor 
+<span style="color: #ff8922;"> 403 Forbidden </span> Proibido, autenticado porém sem permissão "de uso, login"
+
+<span style="color: #ff8922;"> 404 Not Found </span> Não encontrado, recurso inexistente, produto não encontrado, rota inexistente
+
+<span style="color: #ff8922;"> 409 Conflict </span> Conflito, email já existente, produto duplicado
+
+<span style="color: #ff8922;"> 500 Internal Server Error </span> Erro do servidor, bug do cod, erro do banco, exceção não tratada, nunca culpa do cliente, Erro interno, falha no backend
 
 <h3>Erro flask shell</h3>
 

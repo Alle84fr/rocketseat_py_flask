@@ -53,3 +53,4 @@ send
 
 retorno 200 ok + no body o corpo payload criado
 
+5° ir para ecommerce.db - verá o produto celular criado, que ficará fixo

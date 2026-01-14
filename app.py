@@ -1,5 +1,5 @@
 # Da biblioteca flask traga a classe Flask
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 #instanciando/ criando novo obj flask
@@ -56,18 +56,33 @@ def add_product():
     #recuperar dados
     #request vem do flask
     data = request.json
-    #criando produto e savando na variável product
+    # 1° erros depois acerto
+    # aqui para verificar se há chave no payload
+    # no payload ficaria so com price e description, por exemplo, sem linha do name
+    if "name" not in data or "price" not in data: 
+        return ({"error": "Name ans price are required"}), 400
+    # aqui para verificar o valor, obervar que a chave está dentro do colchete, porque é o valor desta chave que quero receber, não a chave em si
+    # não possui in porque já foi analisado existência de chave, então não tem erro KeyError
+    # is None depois de price porque ele é número, e zero é valor, então deve ser nulo para dar erro. Já name é retorno de true ou false, não precisa de adiconais de comparação
+    # no payload ficaria "name": "", ou price: Null
+    if not data["name"] or data["price"] is None: 
+        return ({"error": "Invalid data"}), 400
+        #criando produto e savando na variável product
     # Product é da classe criada anteriormente
-    #nome=data["name"] - pega variável data, e dentro é o valor da chave de acesso do dict
-    # método.get recupera a chave
-    # 1° método se não achar dá erro, no segundo se não achar retorna valor que por dentro do parenteses "None"
-    product = Product(name=data["name"], price=data["price"], description=data.get("description", ""))
-    #add no db
-    db.session.add(product)
-    db.session.commit()
-    return "201 - produto cadastro"
+    # verificar dados - tratamento erro
+    # verfica se a chave está no data
+    if "name" in data and "price" in data:
+        #nome=data["name"] - pega variável data, e dentro é o valor da chave de acesso do dict
+        # método.get recupera a chave
+        # 1° método se não achar dá erro, no segundo se não achar retorna valor que por dentro do parenteses "None"
+        product = Product(name=data["name"], price=data["price"], description=data.get("description", ""))
+        #add no db
+        db.session.add(product)
+        db.session.commit()
+        # este retorno é uma tupla, dentro tem dict {} que é body, n° é status
+        return {"message": "Product created"}, 201
 # ir passo 4 docm/seque.md
-
+# ir para passo 5 docm/seque.md
 #----------------------------------
 
 #para subir
