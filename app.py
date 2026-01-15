@@ -6,7 +6,8 @@ from flask_cors import CORS
 #para login
 # login_user para utentificação
 # login_+manager faz gerenciamento dos usuários
-from flask_login import UserMixin, login_user, LoginManager
+# login_required obriga que o usuário esteja autenticado nas rotas que acharmos mais senssiveis, ex add_product
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user
 
 #instanciando/ criando novo obj flask
 #variável __name__ refere a caminho
@@ -41,7 +42,6 @@ login_manager.init_app(app)
 login_manager.login_view = "login"
 # chave secreta, deve ter, LoginManager usa autenticar, pode ser qualquer uma - voltar para antes do app.config["SQLA...."]
 
-
 # identificação usuário
 # guardar user  name e password
 class User(db.Model, UserMixin ):
@@ -53,6 +53,16 @@ class User(db.Model, UserMixin ):
  #aqui poderia fazer rotas para criar usuário, mas ele fará e outra forma, passo 8  
 
 #---- rora user -----
+# função user_loader - para poder acessar rotas com restrinção
+# faz parte da autentifiacção
+@login_manager.user_loader
+def load_user(user_id):
+    '''Toda vez que fizer uma requisição de rota protegida, este log recuoperará o usuário que fez a requisição'''
+    # ele retorna o usuário
+    # QUANDO TEM .GET, PARAMETRO É COM ID
+    # deve conveter para int, pois o retorno é em string
+    return User.query.get(int(user_id))
+
 @app.route("/login", methods=["POST"])
 def login():
     '''recebe dados, recupera, anlisa, retorna erro ou dados'''
@@ -72,6 +82,15 @@ def login():
         login_user(user)
         return jsonify({"message": "Logged in successfully"})
     return jsonify({"error": "Unauthorized. Invalid credentials"}), 401
+
+#logout
+@app.route("/logout", methods=["POST"])
+# para acessar rota o user deve já estra autorizado/ logado
+@login_required
+def logout():
+    logout_user()
+    return jsonify({"message": "Logout successfully"})
+#-----------------------------
         
 #modelagem, tabelas com collumn and row
 # terá colunas com id, name, price, description
@@ -106,6 +125,8 @@ def hello_world():
 #rota POST product - new product/novo produto
 
 @app.route("/api/products/add", methods=["POST"])
+# deve estar autenticado
+@login_required
 # se quiser aceitar mais de uma método só por , e outro método "POST", "GET"
 #SNACKCASE n_p
 #payload = corpo de requisição, dados enviados para API, servidor com rota POST ou PUT - será formato json com chave e valor
@@ -145,6 +166,7 @@ def add_product():
 # <tipo:parametro>
 # vai delatar pegando id do produto
 @app.route("/api/products/delete/<int:product_id>", methods=["DELETE"])
+@login_required
 def delete_product(product_id):
     #recuperar produto
     # pesquisee pegue o id do produto da class produto
@@ -169,6 +191,7 @@ def get_product_details(product_id):
     
 #Atualizar
 @app.route("/api/products/update/<int:product_id>", methods=["PUT"])
+@login_required
 def update_product(product_id):
     '''Recebe infromação - muda o dado'''
     product = Product.query.get(product_id)
