@@ -42,6 +42,7 @@ login_manager.init_app(app)
 login_manager.login_view = "login"
 # chave secreta, deve ter, LoginManager usa autenticar, pode ser qualquer uma - voltar para antes do app.config["SQLA...."]
 
+#------------ user--------------------------
 # identificação usuário
 # guardar user  name e password
 class User(db.Model, UserMixin ):
@@ -49,9 +50,14 @@ class User(db.Model, UserMixin ):
     # unique = True, não pode ter outro igual
     username = db.Column(db.String(80), nullable=False, unique=True)
     password = db.Column(db.String(80), nullable=False)
- # ir para passo 7°
- #aqui poderia fazer rotas para criar usuário, mas ele fará e outra forma, passo 8  
-
+    # ir para passo 7°
+    #aqui poderia fazer rotas para criar usuário, mas ele fará e outra forma, passo 8 
+    #criado depois de fazer class do carrinho, relação entre carrinho e user
+    # o backref é referente ao conteúdo criado no carrinho do usuário
+    # lazy toda vez que for rcuperar, não é para pegar todos itens adicionados, para recuperar apenas itens quando tentar acessar o carrinho
+    cart = db.relationship("CartItem", backref="user", lazy=True)
+    # ir passo 10
+    
 #---- rora user -----
 # função user_loader - para poder acessar rotas com restrinção
 # faz parte da autentifiacção
@@ -85,13 +91,16 @@ def login():
 
 #logout
 @app.route("/logout", methods=["POST"])
-# para acessar rota o user deve já estra autorizado/ logado
+# para acessar rota o user deve já estar autorizado/ logado
 @login_required
 def logout():
     logout_user()
     return jsonify({"message": "Logout successfully"})
+
 #-----------------------------
-        
+
+#-------------- product
+
 #modelagem, tabelas com collumn and row
 # terá colunas com id, name, price, description
 #linhas terão as infromações
@@ -111,7 +120,7 @@ class Product(db.Model):
      description = db.Column(db.Text, nullable=True )
 
 #criar bd - ctrl j (terminal) - python -m flask shell - ir para docm/seque.md
-
+#-----------------------------------------
 
 
 #---- Endpoints/rotas raiz da pag inical e a função/ verbo a ser executado ---
@@ -228,8 +237,26 @@ def list_product():
         }
         product_list.append(product_data)
     return jsonify(product_list)
+#------------------------------------------
 
+# ------ carrinho
 
+# adicionar produto ao carrinho
+# tem apenas um carrinho por usuer
+
+# lembrar que para criar model (modelo de dados):
+# class - esqueleto de um objeto que pode ou não ter funções(métodos)
+# db é o nome da variável que representa a instância, CHAMAMENTO da biblioteca Flask-SQLAlchemy
+# Model é a classe que possui o ORM
+# tudo isso é a DEFINIÇÃO DO MODELO de uma tabela no banco de dados
+class CartItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    # o user_id faz uma referência à tabela usuário, com base no id
+    # ForeinKey é uma chave estrangeira que, neste caso, é a chave primário da tabela user - é o valor único que representa uma pessoa
+    # dentro do parêntese coloca o nome da classe, porém em minúsculo e a chave, referencia a ser "conectada"
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey("product.id"), nullable=False)
+    # ir para class usuer e criar campo para carrinho
 
         
 #----------------------------------
