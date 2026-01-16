@@ -319,6 +319,21 @@ def list_cart():
             "product_price": product.price
         })
     return jsonify(cart_list)
+
+#checkout
+# limpar o carrinho, neste caso
+# aqui, nomalmente iria para pagamento
+@app.route("/api/cart/checkout", methods=["POST"])
+@login_required
+def checkout():
+    user = User.query.get(int(current_user.id))
+    cart_items = user.cart
+    for cart_tem in cart_items:
+        # remove da tabela cart_item
+        db.session.delete(cart_tem)
+    db.session.commit()
+    return jsonify({"message": "checkout successful"})
+
 #----------------------------------
 
 #para subir
