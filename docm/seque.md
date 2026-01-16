@@ -96,3 +96,23 @@ SE QUISER PODE USAR O FLASK MIGRATE, para alterar o banco em deletar, altera tud
 <span style="color: #ff8922;">db.session.commit()</span> salva
 
 <span style="color: #ff8922;">exit()</span> sair
+
+10° até o moneto tudo está local, deixar remoto
+
+a nuvem será aws cloud da amazon - elastic Beanstalk - implantar e direcionar na web
+
+só paga pelo que se usa - no exemplo não se paga, pois é taxa gratuíta
+
+https://aws.amazon.com/pt/free/
+
+
+Não cadastrei, muito arriscado para um simples projeto, eis passo a passo
+SERÁ FEITO POR TERMINAL
+
+GOOGLE - aws cli install - instalar gui .... - for all computer ...
+
+última aula detalha como fazer tudo
+
+
+
+
