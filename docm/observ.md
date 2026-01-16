@@ -67,3 +67,8 @@ usar <span style="color: #ff8922;"> python -m flask shell</span>
 <span style="color: #ff8922;"> PUT</span> ATUALIZAR TUDO
 <span style="color: #ff8922;"> PATCH</span>  ATUALIZA PARTE, alguns campos 
 <span style="color: #ff8922;"> DELETE</span> REMOVE, geralmente não tem payload
+
+<h3>Erro carrinho</h3>
+
+Consigo 200 com product_id - 1 e todos os outros (2,3,4) dão 400
+

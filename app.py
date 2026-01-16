@@ -7,7 +7,7 @@ from flask_cors import CORS
 # login_user para utentificação
 # login_+manager faz gerenciamento dos usuários
 # login_required obriga que o usuário esteja autenticado nas rotas que acharmos mais senssiveis, ex add_product
-from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 
 #instanciando/ criando novo obj flask
 #variável __name__ refere a caminho
@@ -258,6 +258,46 @@ class CartItem(db.Model):
     product_id = db.Column(db.Integer, db.ForeignKey("product.id"), nullable=False)
     # ir para class usuer e criar campo para carrinho
 
+# rotas carrinho
+# usuário deve estar logado
+
+#add ao carrinho
+@app.route("/api/cart/add/<int:product_id>", methods=["POST"])
+@login_required
+def add_to_cart(product_id):
+    '''Adcionando produto do usuário ao carrinho'''
+    #recuperar usuário
+    # lembrar de converter para interio
+    user = User.query.get(int(current_user.id))
+    # atenção product_id é o parâmetro da função, escreva igual
+    # atenção Product.query e não User.query
+    product = Product.query.get(int(product_id))
+   
+    if user and product:
+        # instanciando o cart_item
+        cart_item = CartItem(user_id=user.id, product_id=product.id)
+        #adicionando
+        db.session.add(cart_item)
+        db.session.commit()
+        return jsonify({"message": "Item added to the cart"})
+    return jsonify({"error": "Item not added to the cart"}), 400
+
+#remover
+# item seria o produto, mas aqui mostrou que pode ser outro nome
+@app.route("/api/cart/remove/<int:product_id>", methods=["DELETE"])
+@login_required
+def remove_from_cart(product_id):
+    '''Deletar produto do usuário ao carrinho'''
+    #recuperar usuário e produto de uma única vez, outra forma de recuperar
+    # achar item direto
+    # se não achar o produto fica nulo
+    cart_item = CartItem.query.filter_by(user_id=current_user.id , product_id=product_id).first()
+    if cart_item:
+        db.session.delete(cart_item)
+        db.session.commit()
+        return jsonify({"message": "Item removed from the cart"})
+    return jsonify({"error": "Item not removed from the cart"}), 400
+    
         
 #----------------------------------
 
