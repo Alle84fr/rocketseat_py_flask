@@ -298,7 +298,27 @@ def remove_from_cart(product_id):
         return jsonify({"message": "Item removed from the cart"})
     return jsonify({"error": "Item not removed from the cart"}), 400
     
-        
+#listar itens
+@app.route("/api/cart", methods=["GET"])
+@login_required
+def list_cart():
+    user = User.query.get(int(current_user.id))
+    cart_items = user.cart
+    cart_list = []
+    for cart_tem in cart_items:
+        # se quiser por informações sobre o produto no carinho, mas ficará "pesado", performance mais lenta
+        # seria variável product e as chaves product_name e price, deixei só para ficar didático
+        # o correto é buscar todo o ´produto, pesquisar como depois
+        product = Product.query.get(cart_tem.product_id)
+        cart_list.append({
+            "id": cart_tem.id,
+            "user_id": cart_tem.user_id,
+            "product_id": cart_tem.product_id,
+            #acessar algo do produto
+            "product_name": product.name,
+            "product_price": product.price
+        })
+    return jsonify(cart_list)
 #----------------------------------
 
 #para subir
